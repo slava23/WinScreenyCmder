@@ -1,7 +1,8 @@
 WinScreeny
 ======
-WinScreeny is Screenfetch for Windows OS. You know those linux desktop hipster threads that everyone goes 
-around posting their OS information with the ASCII OS logo next to it? That's this. But, for Windows.
+WinScreenyCmder is Screenfetch for Windows, made for using with Cmder and bash.
+You know those linux desktop hipster threads that everyone goes around posting
+their OS information with the ASCII OS logo next to it? That's this. But, for Windows.
 
 ![Win Screeny](http://puu.sh/mFD2)
 
@@ -20,15 +21,11 @@ $ screeny
 Download `screeny` and place it in your `scripts` or `$home` folder.
 
 ## Requirements
-- CygWin
-- Optional: Third-Party X Terminal
-
-## Todo
-- Optional Settings
-- Screenshots
-- <s>Cleanup Code, Put into Methods</s>
+- Cmder with bash shell
+- XMLStarlet
 
 ## License
-Author: Nijiko Yonskai <nijikokun@gmail.com> <http://twitter.com/nijikokun>
+Forked from WinScreeny by Nijikokun, https://github.com/nijikokun/WinScreeny
+Fixed for compatibility with Cmder & Windows 10 by Slava Eremenko, https://github.com/yaroslaveremenko
 
 Licensed under AOL <http://aol.nexua.org>
