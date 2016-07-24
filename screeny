@@ -63,7 +63,7 @@ fi
 
 # Begin Detection
 detectHost () {
-	user=$(echo "$USER")
+	user=$(whoami)
 	host=$(hostname)
 	[[ "$debug" -eq "1" ]] && Debug "Finding hostname, and user.... Found as: '$user@$host'"
 }
@@ -86,7 +86,7 @@ detectArch () {
 
 detectHDD () {
 	size=`df -h | sed -n 2p | awk '{print $2}'`
-	free=`df -h | sed -n 2p | awk '{print $2}'`
+	free=`df -h | sed -n 2p | awk '{print $4}'`
 	[[ "$debug" -eq "1" ]] && Debug "Finding HDD Size, and Free Space.... Found as: '$free / $size'"
 }
 

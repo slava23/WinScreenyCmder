@@ -1,31 +1,33 @@
-WinScreeny
+WinScreenyCmder
 ======
-WinScreenyCmder is Screenfetch for Windows, made for using with Cmder and bash.
+WinScreenyCmder is Screenfetch for Windows, made for using together with Cmder console emulator and bash shell.
 You know those linux desktop hipster threads that everyone goes around posting
 their OS information with the ASCII OS logo next to it? That's this. But, for Windows.
 
-![Win Screeny](http://puu.sh/mFD2)
+![WinScreenyCmder](http://i.imgur.com/M4Z7NHl.png)
 
-## Usage
-``` bash
-$ sh ~/screeny
-```
+# Requirements
+Download and install required software:
+- **Cmder**, with `bash` and `git-for-windows`: http://cmder.net/. This program was developed for using with Cmder, and may not work properly under other console emulators.
+- **XMLStarlet**: http://xmlstar.sourceforge.net/.
 
-Aliased:
+# Installation
+Download `screeny` and place it in your `$CMDER_ROOT/bin` or another folder.
 
+# Usage
+If the script was placed in a folder which is included to the `$PATH` envvar:
 ``` bash
 $ screeny
 ```
 
-## Install
-Download `screeny` and place it in your `scripts` or `$home` folder.
+Otherwise:
+``` bash
+$ ./screeny
+```
 
-## Requirements
-- Cmder with bash shell
-- XMLStarlet
+# License
+Licensed under AOL <http://aol.nexua.org>.
 
-## License
-Forked from WinScreeny by Nijikokun, https://github.com/nijikokun/WinScreeny
+Forked from WinScreeny (by Nijikokun, https://github.com/nijikokun/WinScreeny).
+
 Fixed for compatibility with Cmder & Windows 10 by Slava Eremenko, https://github.com/yaroslaveremenko
-
-Licensed under AOL <http://aol.nexua.org>
