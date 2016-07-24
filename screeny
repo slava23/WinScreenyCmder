@@ -83,8 +83,8 @@ detectArch () {
 }
 
 detectHDD () {
-	size=`df -H | grep -E '^[A-Z]\:\/?|File' | awk '{ print $2 }' | head -1 | tr -d '\r '`
-	free=`df -H |  grep -E '^[A-Z]\:\/?|File' | awk '{ print $4 }' | head -1 | tr -d '\r '`
+	size=`df -h | sed -n 2p | awk '{print $2}'`
+	free=`df -h | sed -n 2p | awk '{print $2}'`
 	[[ "$debug" -eq "1" ]] && Debug "Finding HDD Size, and Free Space.... Found as: '$free / $size'"
 }
 
