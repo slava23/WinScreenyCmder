@@ -1,11 +1,10 @@
 #!/bin/bash
 #
 # Windows Screenfetch (Without the Screenshot functionality)
-# Forked from WinScreeny by Nijikokun, https://github.com/nijikokun/WinScreeny
-# Fixed for compatibility with Cmder & Windows 10 by Slava Eremenko, https://github.com/yaroslaveremenko
-#
+# Hacked together by Nijikokun <nijikokun@gmail.com>
 # License: AOL <aol.nexua.org>
-version='0.5'
+
+version='0.4'
 
 # Displayment
 display=( Host Cpu OS Arch Shell Motherboard HDD Memory Uptime Resolution DE WM WMTheme Font )
@@ -85,15 +84,14 @@ detectArch () {
 }
 
 detectHDD () {
-	size=`df -h | sed -n 2p | awk '{print $2}'`
-	free=`df -h | sed -n 2p | awk '{print $2}'`
+	size=`df -H | grep -E '^[A-Z]\:\/?|File' | awk '{ print $2 }' | head -1 | tr -d '\r '`
+	free=`df -H |  grep -E '^[A-Z]\:\/?|File' | awk '{ print $4 }' | head -1 | tr -d '\r '`
 	[[ "$debug" -eq "1" ]] && Debug "Finding HDD Size, and Free Space.... Found as: '$free / $size'"
 }
 
 detectResolution () {
-  # Fixed for compatibility win Windows 8-10
-	width=`wmic path Win32_VideoController get CurrentHorizontalResolution | sed -n 2p | grep -o '[0-9]*'`
-	height=`wmic path Win32_VideoController get CurrentVerticalResolution | sed -n 2p | grep -o '[0-9]*'`
+	width=`wmic desktopmonitor get screenwidth | grep -vE '[a-z]+' | tr -d '\r\n '`
+	height=`wmic desktopmonitor get screenheight | grep -vE '[a-z]+' | tr -d '\r\n '`
 	[[ "$debug" -eq "1" ]] && Debug "Finding Screen Resolution.... Found as: '$width / $height'"
 }
 
@@ -138,9 +136,8 @@ detectMotherboard () {
 }
 
 detectDE () {
-  # Fixed for compatibility with Widows versions > 7
-	winver=`wmic os get version | grep -o '^[0-9]*'`
-	if [ "$winver" -ge "7" ]; then
+	winver=`wmic os get version | grep -o '^[0-9]'`
+	if [ "$winver" == "7" ]; then
 		de='Aero'
 	elif [ "$winver" == "6" ]; then
 		de='Aero'
@@ -164,15 +161,13 @@ detectWM () {
 }
 
 detectWMTheme () {
-  # Fuckin' '' and //
-	themeFile="$(reg query 'HKCU\Software\Microsoft\Windows\CurrentVersion\Themes' //v CurrentTheme | grep -o '[A-Z]:\\.*')"
+	themeFile="$(reg query 'HKCU\Software\Microsoft\Windows\CurrentVersion\Themes' /v 'CurrentTheme' | grep -o '[A-Z]:\\.*')"
 	theme=$(echo $themeFile | awk -F"\\" '{print $NF}' | grep -o '[0-9A-z. ]*$' | grep -o '^[0-9A-z ]*')
 	[[ "$debug" -eq "1" ]] && Debug "Finding Window Theme.... Found as: '$theme'"
 }
 
 detectFont () {
-  # XMLStarlet dependency
-	font=$(cat $CMDER_ROOT/vendor/conemu-maximus5/ConEmu.xml | xml sel -t -v "/key[@name='Software']/key[@name= 'ConEmu']/key[@name='.Vanilla']/value[@name='FontName']/@data")
+	font=$(cat $HOME/.minttyrc | grep '^Font=.*' | grep -o '[0-9A-Za-z ]*$')
 	[[ "$debug" -eq "1" ]] && Debug "Finding Font.... Found as: '$font'"
 #	if [ -z $font ]; then
 #		font="Lucida Console"
@@ -189,7 +184,7 @@ cat << EOF
 
 $f1         ,.=:^!^!t3Z3z.,
 $f1        :tt:::tt333EE3                  ${f1}${user}${f7}@${f3}${host}
-$f1        Et:::ztt33EEE  $f2@Ee.,      ..,
+$f1        Et:::ztt33EEE  $f2@Ee.,      ..,   
 $f1       ;tt:::tt333EE7 $f2;EEEEEEttttt33#   ${f1}OS: ${f7}${os} ${arch}
 $f1      :Et:::zt333EEQ.$f2 SEEEEEttttt33QL   ${f1}CPU: ${f7}${cpu}
 $f1      it::::tt333EEF $f2@EEEEEEttttt33F    ${f1}HDD: ${f7}$free / $size
