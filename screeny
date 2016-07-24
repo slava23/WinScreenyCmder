@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Windows Screenfetch (Without the Screenshot functionality)
-# Hacked together by Nijikokun <nijikokun@gmail.com> 
+# Hacked together by Nijikokun <nijikokun@gmail.com>
 # License: AOL <aol.nexua.org>
 
 version='0.4'
@@ -167,7 +167,8 @@ detectWMTheme () {
 }
 
 detectFont () {
-	font=$(cat $HOME/.minttyrc | grep '^Font=.*' | grep -o '[0-9A-Za-z ]*$')
+  # XMLStarlet dependency
+	font=$(cat $CMDER_ROOT/vendor/conemu-maximus5/ConEmu.xml | xml sel -t -v "/key[@name='Software']/key[@name= 'ConEmu']/key[@name='.Vanilla']/value[@name='FontName']/@data")
 	[[ "$debug" -eq "1" ]] && Debug "Finding Font.... Found as: '$font'"
 #	if [ -z $font ]; then
 #		font="Lucida Console"
@@ -182,9 +183,9 @@ done
 # Output
 cat << EOF
 
-$f1         ,.=:^!^!t3Z3z.,                
+$f1         ,.=:^!^!t3Z3z.,
 $f1        :tt:::tt333EE3                  ${f1}${user}${f7}@${f3}${host}
-$f1        Et:::ztt33EEE  $f2@Ee.,      ..,   
+$f1        Et:::ztt33EEE  $f2@Ee.,      ..,
 $f1       ;tt:::tt333EE7 $f2;EEEEEEttttt33#   ${f1}OS: ${f7}${os} ${arch}
 $f1      :Et:::zt333EEQ.$f2 SEEEEEttttt33QL   ${f1}CPU: ${f7}${cpu}
 $f1      it::::tt333EEF $f2@EEEEEEttttt33F    ${f1}HDD: ${f7}$free / $size
