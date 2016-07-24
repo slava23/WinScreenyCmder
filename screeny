@@ -21,7 +21,7 @@ for j in f b; do
 done
 
 # Debugging
-debug=
+debug=1
 
 Debug () {
 	echo -e "\e[1;31m:: \e[0m$1"
@@ -89,8 +89,9 @@ detectHDD () {
 }
 
 detectResolution () {
-	width=`wmic desktopmonitor get screenwidth | grep -vE '[a-z]+' | tr -d '\r\n '`
-	height=`wmic desktopmonitor get screenheight | grep -vE '[a-z]+' | tr -d '\r\n '`
+  # Fixed for compatibility win Windows 8-10
+	width=`wmic path Win32_VideoController get CurrentHorizontalResolution | sed -n 2p | grep -o '[0-9]*'`
+	height=`wmic path Win32_VideoController get CurrentVerticalResolution | sed -n 2p | grep -o '[0-9]*'`
 	[[ "$debug" -eq "1" ]] && Debug "Finding Screen Resolution.... Found as: '$width / $height'"
 }
 
@@ -135,8 +136,9 @@ detectMotherboard () {
 }
 
 detectDE () {
-	winver=`wmic os get version | grep -o '^[0-9]'`
-	if [ "$winver" == "7" ]; then
+  # Fixed for compatibility with Widows versions > 7
+	winver=`wmic os get version | grep -o '^[0-9]*'`
+	if [ "$winver" -ge "7" ]; then
 		de='Aero'
 	elif [ "$winver" == "6" ]; then
 		de='Aero'
