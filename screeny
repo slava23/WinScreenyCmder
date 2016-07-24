@@ -3,7 +3,6 @@
 # Windows Screenfetch (Without the Screenshot functionality)
 # Hacked together by Nijikokun <nijikokun@gmail.com>
 # License: AOL <aol.nexua.org>
-
 version='0.4'
 
 # Displayment
@@ -22,7 +21,7 @@ for j in f b; do
 done
 
 # Debugging
-debug=
+debug=1
 
 Debug () {
 	echo -e "\e[1;31m:: \e[0m$1"
@@ -161,7 +160,8 @@ detectWM () {
 }
 
 detectWMTheme () {
-	themeFile="$(reg query 'HKCU\Software\Microsoft\Windows\CurrentVersion\Themes' /v 'CurrentTheme' | grep -o '[A-Z]:\\.*')"
+  # Fuckin' '' and //
+	themeFile="$(reg query 'HKCU\Software\Microsoft\Windows\CurrentVersion\Themes' //v CurrentTheme | grep -o '[A-Z]:\\.*')"
 	theme=$(echo $themeFile | awk -F"\\" '{print $NF}' | grep -o '[0-9A-z. ]*$' | grep -o '^[0-9A-z ]*')
 	[[ "$debug" -eq "1" ]] && Debug "Finding Window Theme.... Found as: '$theme'"
 }
