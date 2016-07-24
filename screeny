@@ -1,9 +1,11 @@
 #!/bin/bash
 #
 # Windows Screenfetch (Without the Screenshot functionality)
-# Hacked together by Nijikokun <nijikokun@gmail.com>
+# Forked from WinScreeny by Nijikokun, https://github.com/nijikokun/WinScreeny
+# Fixed for compatibility with Cmder & Windows 10 by Slava Eremenko, https://github.com/yaroslaveremenko
+#
 # License: AOL <aol.nexua.org>
-version='0.4'
+version='0.5'
 
 # Displayment
 display=( Host Cpu OS Arch Shell Motherboard HDD Memory Uptime Resolution DE WM WMTheme Font )
